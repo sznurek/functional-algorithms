@@ -83,6 +83,11 @@ struct
     case force s of
         Nil => delay (fn () => Nil)
       | Cons (s, s') => append s (flatten s')
+
+  fun drop 0 s = s
+    | drop n s = case force s of
+                     Nil => delay (fn () => Nil)
+                   | Cons (_, s') => drop (n - 1) s'
 end
 
 
