@@ -35,7 +35,7 @@ struct
                   | Cons (_, s') => sDrop (n-1) s'
 
   fun sTake 0 _ = nil
-    | sTake n s = case force s of Nil => raise Nth
+    | sTake n s = case force s of Nil => nil
                                 | Cons (a, s') => a :: sTake (n-1) s'
 
   fun zip s1 s2 =
@@ -88,6 +88,10 @@ struct
     | drop n s = case force s of
                      Nil => delay (fn () => Nil)
                    | Cons (_, s') => drop (n - 1) s'
+
+  fun fromList [] = delay (fn () => Nil)
+    | fromList (x::xs) =
+      delay (fn () => Cons(x, fromList xs))
 end
 
 
