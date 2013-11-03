@@ -24,7 +24,7 @@ struct
     go 0
   end
 
-  fun from x = delay (fn () => Cons (x, from (x + 1)))
+  fun from x = mkStream (fn n => n + x)
   fun sMap f s =
     case force s of Nil => delay (fn () => Nil)
                   | Cons (a, s') => delay (fn () => Cons (f a, sMap f s'))
